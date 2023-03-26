@@ -16,18 +16,14 @@ class ScreenAuthorize(LcarsScreen):
         all_sprites.add(LcarsBackgroundImage("assets/lcars_screen_2.png"),
                         layer=0)
 
-        all_sprites.add(LcarsGifImage("assets/gadgets/stlogorotating.gif", (103, 369), 50), 
-                        layer=0)        
+        all_sprites.add(LcarsGifImage("assets/gadgets/stlogorotating.gif", (103, 369), 50), layer=0)
 
-        all_sprites.add(LcarsText(colours.ORANGE, (270, -1), "AUTHORIZATION REQUIRED", 2),
-                        layer=0)
+        all_sprites.add(LcarsText(colours.ORANGE, (270, -1), "AUTHORIZATION REQUIRED", 2), layer=0)
 
-        all_sprites.add(LcarsText(colours.BLUE, (330, -1), "ONLY AUTHORIZED PERSONNEL MAY ACCESS THIS TERMINAL", 1.5),
-                        layer=1)
+        all_sprites.add(LcarsText(colours.BLUE, (330, -1), "ONLY AUTHORIZED PERSONNEL MAY ACCESS THIS TERMINAL", 1.5), layer=1)
 
-        all_sprites.add(LcarsText(colours.BLUE, (360, -1), "TOUCH TERMINAL TO PROCEED", 1.5),
-                        layer=1)
-        
+        all_sprites.add(LcarsText(colours.BLUE, (360, -1), "TOUCH TERMINAL TO PROCEED", 1.5), layer=1)
+
         #all_sprites.add(LcarsText(colours.BLUE, (390, -1), "FAILED ATTEMPTS WILL BE REPORTED", 1.5),layer=1)
 
 
@@ -44,7 +40,7 @@ class ScreenAuthorize(LcarsScreen):
 
         if config.DEV_MODE:
             all_sprites.add(LcarsButton(colours.GREY_BLUE, (0, 770), "X", self.exitHandler, (30, 30)), layer=2)
-        
+
         self.layer1 = all_sprites.get_sprites_from_layer(1)
         self.layer2 = all_sprites.get_sprites_from_layer(2)
 

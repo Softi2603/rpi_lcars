@@ -1,5 +1,6 @@
 """GIFImage by Matthew Roe"""
 
+from types import NoneType
 from PIL import Image
 import pygame
 from pygame.locals import *
@@ -66,28 +67,31 @@ class GIFImage(object):
                 if len(tile) > 0:
                     x0, y0, x1, y1 = tile[0][1]
 
+                palette = base_palette
                 if all_tiles:
-                    if all_tiles in ((6,), (7,)):
-                        cons = True
-                        pal = image.getpalette()
-                        palette = []
-                        for i in range(0, len(pal), 3):
-                            rgb = pal[i:i+3]
-                            palette.append(rgb)
-                    elif all_tiles in ((7, 8), (8, 7)):
-                        pal = image.getpalette()
-                        palette = []
-                        for i in range(0, len(pal), 3):
-                            rgb = pal[i:i+3]
-                            palette.append(rgb)
+                    cons = True
+                    if type(image.getpalette()) != NoneType:
+                        if all_tiles in ((6,), (7,)):
+                            pal = image.getpalette()
+                            palette = []
+                            for i in range(0, len(pal), 3):
+                                rgb = pal[i:i+3]
+                                palette.append(rgb)
+                        elif all_tiles in ((7, 8), (8, 7)):
+                            cons = False
+                            pal = image.getpalette()
+                            palette = []
+                            for i in range(0, len(pal), 3):
+                                rgb = pal[i:i+3]
+                                palette.append(rgb)
                     else:
+                        cons = False
                         palette = base_palette
-                else:
-                    palette = base_palette
 
                 imgdata = image.tobytes() if (hasattr(image, "tobytes")) else image.tostring()
                 pi = pygame.image.fromstring(imgdata, image.size, image.mode)
-                pi.set_palette(palette)
+                if type(image.getpalette()) != NoneType:
+                    pi.set_palette(palette)
                 if "transparency" in image.info:
                     pi.set_colorkey(image.info["transparency"])
                 pi2 = pygame.Surface(image.size, SRCALPHA)
