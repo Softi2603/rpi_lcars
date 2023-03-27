@@ -1,6 +1,7 @@
 """GIFImage by Matthew Roe"""
 
-from types import NoneType
+#from types import NoneType
+import types
 from PIL import Image
 import pygame
 from pygame.locals import *
@@ -31,17 +32,20 @@ class GIFImage(object):
 
         pal = image.getpalette()
         base_palette = []
-        for i in range(0, len(pal), 3):
-            rgb = pal[i:i+3]
-            base_palette.append(rgb)
+        if type(pal) != types.NoneType:
+            for i in range(0, len(pal), 3): # type: ignore
+                rgb = pal[i:i+3]
+                base_palette.append(rgb)
+        else:
+            base_palette = image.getpalette()
 
         all_tiles = []
         try:
             while 1:
-                if not image.tile:
+                if not image.tile: # type: ignore
                     image.seek(0)
-                if image.tile:
-                    all_tiles.append(image.tile[0][3][0])
+                if image.tile: # type: ignore
+                    all_tiles.append(image.tile[0][3][0]) # type: ignore
                 image.seek(image.tell()+1)
         except EOFError:
             image.seek(0)
@@ -59,39 +63,39 @@ class GIFImage(object):
                 cons = False
 
                 x0, y0, x1, y1 = (0, 0) + image.size
-                if image.tile:
-                    tile = image.tile
+                if image.tile: # type: ignore
+                    tile = image.tile # type: ignore
                 else:
                     image.seek(0)
-                    tile = image.tile
+                    tile = image.tile # type: ignore
                 if len(tile) > 0:
                     x0, y0, x1, y1 = tile[0][1]
 
                 palette = base_palette
                 if all_tiles:
                     cons = True
-                    if type(image.getpalette()) != NoneType:
+                    if type(image.getpalette()) != types.NoneType:
                         if all_tiles in ((6,), (7,)):
                             pal = image.getpalette()
                             palette = []
-                            for i in range(0, len(pal), 3):
+                            for i in range(0, len(pal), 3): # type: ignore
                                 rgb = pal[i:i+3]
                                 palette.append(rgb)
                         elif all_tiles in ((7, 8), (8, 7)):
                             cons = False
                             pal = image.getpalette()
                             palette = []
-                            for i in range(0, len(pal), 3):
+                            for i in range(0, len(pal), 3): # type: ignore
                                 rgb = pal[i:i+3]
                                 palette.append(rgb)
                     else:
                         cons = False
                         palette = base_palette
 
-                imgdata = image.tobytes() if (hasattr(image, "tobytes")) else image.tostring()
-                pi = pygame.image.fromstring(imgdata, image.size, image.mode)
-                if type(image.getpalette()) != NoneType:
-                    pi.set_palette(palette)
+                imgdata = image.tobytes() if (hasattr(image, "tobytes")) else image.tostring() # type: ignore
+                pi = pygame.image.fromstring(imgdata, image.size, image.mode) # type: ignore
+                if type(image.getpalette()) != types.NoneType:
+                    pi.set_palette(palette) # type: ignore
                 if "transparency" in image.info:
                     pi.set_colorkey(image.info["transparency"])
                 pi2 = pygame.Surface(image.size, SRCALPHA)

@@ -4,7 +4,7 @@ from pygame.sprite import DirtySprite, LayeredDirty
 
 # init
 pygame.init()
-screenSurface = pygame.display.set_mode((600, 400))
+screenSurface = pygame.display.set_mode((720, 450))
 
 class PpuiImage(DirtySprite):
     """Image sprite"""

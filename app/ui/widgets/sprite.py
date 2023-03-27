@@ -49,7 +49,7 @@ class LcarsWidget(pygame.sprite.DirtySprite):
         if event.type == pygame.MOUSEMOTION:
             if (self.focussed and pygame.time.get_ticks() - self.pressed_time > 1000):
                 self.long_pressed = True
-                if self.groups()[0].UI_PLACEMENT_MODE:
+                if self.groups()[0].UI_PLACEMENT_MODE: # type: ignore
                     self.rect.top = event.pos[1]
                     self.rect.left = event.pos[0]
                     self.dirty = 1            
@@ -59,7 +59,7 @@ class LcarsWidget(pygame.sprite.DirtySprite):
                 self.handler(self, event, clock)
                 handled = True
             
-            if self.focussed and self.long_pressed and self.groups()[0].UI_PLACEMENT_MODE:
+            if self.focussed and self.long_pressed and self.groups()[0].UI_PLACEMENT_MODE: # type: ignore
                 print(event.pos[1], event.pos[0])
                 
             self.pressed_time = 0

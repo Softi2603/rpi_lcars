@@ -6,4 +6,4 @@ RESOLUTION = (1920, 1080)
 FPS = 30
 DEV_MODE = True
 SOUND = True
-PIN = '0815'
+PIN = '2603'

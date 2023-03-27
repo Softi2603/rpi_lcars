@@ -4,7 +4,7 @@ from pygame.locals import *
 
 from ui.utils.sound import Sound
 from ui.widgets.sprite import LcarsWidget
-from ui import colours
+from ui import colours # type: ignore
 
 class LcarsElbow(LcarsWidget):
     """The LCARS corner elbow - not currently used"""
